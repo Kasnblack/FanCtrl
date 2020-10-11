@@ -1,6 +1,4 @@
-﻿//#define MY_DEBUG
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Security.AccessControl;
@@ -8,6 +6,7 @@ using System.Security.Principal;
 using NvAPIWrapper;
 using NvAPIWrapper.GPU;
 using System.Text;
+using NvAPIWrapper.Native.GPU;
 
 namespace FanCtrl
 {
@@ -750,6 +749,7 @@ namespace FanCtrl
                             int speed = value.CurrentLevel;
                             int minSpeed = value.DefaultMinimumLevel;
                             int maxSpeed = value.DefaultMaximumLevel;
+                            CoolerPolicy defaultPolicy = value.DefaultPolicy;
 
                             var name = "GPU Fan Control #" + gpuFanNum++;
                             while (this.isExistControl(name) == true)
@@ -757,7 +757,7 @@ namespace FanCtrl
                                 name = "GPU Fan Control #" + gpuFanNum++;
                             }
 
-                            var control = new NvAPIFanControl(name, i, coolerID, speed, minSpeed, maxSpeed);
+                            var control = new NvAPIFanControl(name, i, coolerID, speed, minSpeed, maxSpeed, defaultPolicy);
                             control.onSetNvAPIControlHandler += onSetNvApiControl;
                             mControlList.Add(control);
                         }
@@ -969,7 +969,7 @@ namespace FanCtrl
             return speed;
         }
 
-        private void onSetNvApiControl(int index, int coolerID, int value)
+        private void onSetNvApiControl(int index, int coolerID, int value, CoolerPolicy policy)
         {
             this.lockBus();
             try
@@ -981,7 +981,7 @@ namespace FanCtrl
                     return;
                 }
                 var info = gpuArray[index].CoolerInformation;
-                info.SetCoolerSettings(coolerID, value);
+                info.SetCoolerSettings(coolerID, policy, value);
             }
             catch { }            
             this.unlockBus();
