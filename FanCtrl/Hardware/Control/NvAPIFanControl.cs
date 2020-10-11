@@ -1,4 +1,4 @@
-﻿using NvAPIWrapper;
+using NvAPIWrapper;
 using NvAPIWrapper.GPU;
 using NvAPIWrapper.Native.GPU;
 using System;
@@ -64,7 +64,7 @@ namespace FanCtrl
             }
             else if (value < mMinSpeed)
             {
-                Value = value;
+                Value = mMinSpeed;
 
                 mCurrentPolicy = mDefaultPolicy;
             }
