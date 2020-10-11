@@ -1,4 +1,4 @@
-using NvAPIWrapper;
+﻿using NvAPIWrapper;
 using NvAPIWrapper.GPU;
 using NvAPIWrapper.Native.GPU;
 using System;
@@ -36,6 +36,12 @@ namespace FanCtrl
         public override void update()
         {
 
+        }
+
+        public override void stop()
+        {
+            mCurrentPolicy = mDefaultPolicy;
+            onSetNvAPIControlHandler(mIndex, mCoolerID, Value, mDefaultPolicy);
         }
 
         public override int getMinSpeed()

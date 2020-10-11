@@ -424,6 +424,11 @@ namespace FanCtrl
 
             mSensorList.Clear();
             mFanList.Clear();
+
+            for (int i = 0; i < mControlList.Count; i++)
+            {
+                mControlList[i].stop();
+            }
             mControlList.Clear();
 
             SMBusController.close();

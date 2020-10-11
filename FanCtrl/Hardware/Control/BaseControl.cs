@@ -29,6 +29,10 @@ namespace FanCtrl
         {
 
         }
+        public virtual void stop()
+        {
+
+        }
 
         public virtual int getMinSpeed()
         {
