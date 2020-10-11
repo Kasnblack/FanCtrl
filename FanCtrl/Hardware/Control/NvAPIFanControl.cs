@@ -1,4 +1,4 @@
-using NvAPIWrapper;
+﻿using NvAPIWrapper;
 using NvAPIWrapper.GPU;
 using NvAPIWrapper.Native.GPU;
 using System;
