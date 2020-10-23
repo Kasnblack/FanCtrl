@@ -64,7 +64,7 @@ namespace FanCtrl
             }
             else if (value < mMinSpeed)
             {
-                Value = mMinSpeed;
+                Value = value;
 
                 mCurrentPolicy = mDefaultPolicy;
             }
